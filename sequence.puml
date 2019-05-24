@@ -1,0 +1,39 @@
+@startuml sequence
+
+hide footbox
+autonumber "(0)"
+
+actor ユーザー as U
+participant "ブラウザ画面(React)" as F
+participant "ブラウザAPI(Express, Puppeteer)" as B
+participant 指定したWebページ as T
+
+U -> F: アドレスバーにURLを入力
+activate F
+F -> B: 入力されたURL、画面サイズを渡す
+activate B
+B -> T: Puppeteerでアクセス
+activate T
+T --> B: スナップショット取得
+deactivate T
+B --> F: スナップショットとURL状態を返す
+deactivate B
+F --> U: ウィンドウにスナップショットを表示
+deactivate F
+
+loop
+U -> F: スナップショット上のリンクをクリック
+activate F
+F -> B: 現在のURL、画面サイズ、クリックした座標を渡す
+activate B
+B -> T: Puppeteerでアクセスし、指定座標でマウスクリックし、画面遷移する
+activate T
+T --> B: スナップショット取得
+deactivate T
+B --> F: スナップショットとURL状態を返す
+deactivate B
+F --> U: ウィンドウにスナップショットを表示
+deactivate F
+end
+
+@enduml

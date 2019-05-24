@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "outDir": "dist"
+  },
+  "exclude": ["dist", "server/**/*.*"]
+}
